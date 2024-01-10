@@ -1,5 +1,5 @@
 cloudprovider: amazonec2
-cloudCredentialSecretName: awscred 
+cloudCredentialSecretName: awsgovcloud 
 rancher:
   cattle:
     url: rancher.creynold.dev
