@@ -84,7 +84,7 @@ nodepools:
     region: us-gov-west-1
     createSecurityGroup: false
     securityGroups: ['creynold-sg'] # required: replace with your security group name
-    keypairName: ''
+    keypairName: 'creynold-rgs-aws'
     securityGroupReadonly: false
     sshKeyContents: ''
     subnetId: subnet-0392e5b03c16aa118 # required: replace with your subnet id
@@ -252,7 +252,7 @@ nodepools:
     region: us-gov-west-1
     createSecurityGroup: false
     securityGroups: ['creynold-sg'] # required: replace with your security group name
-    keypairName: '' # adding key
+    keypairName: 'creynold-rgs-aws' # adding key
     securityGroupReadonly: false
     sshKeyContents: ''
     subnetId: subnet-0392e5b03c16aa118 # required: replace with your subnet id
