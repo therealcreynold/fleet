@@ -80,7 +80,7 @@ nodepools:
     endpoint: ''
     iamInstanceProfile: 'creynold-iam-ip' # required: replace with your iam instance profile name
     insecureTransport: false
-    instanceType: m6a.xlarge
+    instanceType: t3a.xlarge
     region: us-gov-west-1
     createSecurityGroup: false
     securityGroups: ['creynold-sg'] # required: replace with your security group name
@@ -248,7 +248,7 @@ nodepools:
     endpoint: ''
     iamInstanceProfile: 'creynold-iam-ip' # required: replace with your iam instance profile name
     insecureTransport: false
-    instanceType: m6a.xlarge
+    instanceType: t3a.xlarge
     region: us-gov-west-1
     createSecurityGroup: false
     securityGroups: ['creynold-sg'] # required: replace with your security group name
