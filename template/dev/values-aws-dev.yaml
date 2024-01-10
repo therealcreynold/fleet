@@ -2,7 +2,7 @@ cloudprovider: amazonec2
 cloudCredentialSecretName: awscred 
 rancher:
   cattle:
-    url: rancher.rfed.io
+    url: rancher.ceynold.dev
 cluster:
   annotations: {}
   labels: {}

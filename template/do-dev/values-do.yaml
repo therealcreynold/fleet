@@ -7,7 +7,7 @@ cloudCredentialSecretName: docreds
 # rancher manager url
 rancher:
   cattle:
-    url: rancher.rfed.io # required (example: rancher.example.com)
+    url: rancher.creynold.dev # required (example: rancher.example.com)
 
 # cluster values
 cluster:
