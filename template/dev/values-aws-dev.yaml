@@ -88,7 +88,7 @@ nodepools:
     securityGroupReadonly: false
     sshKeyContents: ''
     subnetId: subnet-0392e5b03c16aa118 # required: replace with your subnet id
-    zone: b
+    #zone: b
     monitoring: false
     privateAddressOnly: false
     requestSpotInstance: false
@@ -256,7 +256,7 @@ nodepools:
     securityGroupReadonly: false
     sshKeyContents: ''
     subnetId: subnet-0392e5b03c16aa118 # required: replace with your subnet id
-    zone: b
+    #zone: b
     monitoring: false
     privateAddressOnly: false
     requestSpotInstance: false
