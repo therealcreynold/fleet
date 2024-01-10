@@ -94,7 +94,7 @@ nodepools:
     requestSpotInstance: false
     tags: provisioner,rancher,KeepRunning,true
     retries: 5
-    rootSize: 80
+    rootSize: 90
     sshUser: ec2-user
     volumeType: gp3
     vpcId: vpc-0b6941a3bdc1f3fda # required: replace with your vpc id
