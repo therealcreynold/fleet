@@ -2,14 +2,14 @@ cloudprovider: amazonec2
 cloudCredentialSecretName: awsgovcloud 
 rancher:
   cattle:
-    url: rancher.creynold.dev
+    url: rancher.ceynold.dev
 cluster:
   annotations: {}
   labels: {}
-  name: prod-aws
+  name: creynold-prod-aws-govcloud
   config:
     systemDefaultRegistry: docker.io
-    kubernetesVersion: v1.26.10+rke2r2
+    kubernetesVersion: v1.26.11+rke2r1
     localClusterAuthEndpoint:
       enabled: false
     cni: canal
@@ -66,38 +66,38 @@ cluster:
 
 
 nodepools:
-  - name: control-plane-nodes-prod
+  - name: control-plane-nodes-dev
     etcd: true
     controlplane: true
     worker: true
     labels: {}
     taints: {}
-    quantity: 3
+    quantity: 1
     paused: false
-    ami: ami-05a5f6298acdb05b6 # rocky ami-09c77dc92e45bc3ea  # optional: replace with your ami id
+    ami: ami-0ce8fc041db68907c # rhel 9 ami
     deviceName: /dev/sda1
     encryptEbsVolume: false
     endpoint: ''
-    iamInstanceProfile: 'iam-profile' # required: replace with your iam instance profile name
+    iamInstanceProfile: 'creynold-iam-ip' # required: replace with your iam instance profile name
     insecureTransport: false
-    instanceType: m6a.2xlarge
-    region: us-east-1
+    instanceType: t3a.xlarge
+    region: us-gov-west-1
     createSecurityGroup: false
-    securityGroups: ['default'] # required: replace with your security group name
+    securityGroups: ['creynold-sg'] # required: replace with your security group name
     keypairName: ''
     securityGroupReadonly: false
     sshKeyContents: ''
-    subnetId: subnet-0a798890114529bf6 # required: replace with your subnet id
-    zone: b
+    subnetId: subnet-0392e5b03c16aa118 # required: replace with your subnet id
+    zone: a
     monitoring: false
     privateAddressOnly: false
     requestSpotInstance: false
     tags: provisioner,rancher,KeepRunning,true
     retries: 5
-    rootSize: 80
+    rootSize: 90
     sshUser: ec2-user
     volumeType: gp3
-    vpcId: vpc-0a41666752f70473d # required: replace with your vpc id
+    vpcId: vpc-0b6941a3bdc1f3fda # required: replace with your vpc id
     useEbsOptimizedInstance: false
     usePrivateAddress: false
     userData: |
@@ -115,7 +115,7 @@ nodepools:
       - zip
       - zstd
       ssh_authorized_keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEA26evmemRbhTtjV9szD9SwcFW9VOD38jDuJmyYYdqoqIltDkpUqDa/V1jxLSyrizhOHrlJtUOj790cxrvInaBNP7nHIO+GwC9VH8wFi4KG/TFj3K8SfNZ24QoUY12rLiHR6hRxcT4aUGnqFHGv2WTqsW2sxz03z+W1qeMqWYJOUfkqKKs2jiz42U+0Kp9BxsFBlai/WAXrQsYC8CcpQSRKdggOMQf04CqqhXzt5Q4Cmago+Fr7HcvEnPDAaNcVtfS5DYLERcX2OVgWT3RBWhDIjD8vYCMBBCy2QUrc4ZhKZfkF9aemjnKLfLcbdpMfb+r7NwJsVQSPKcjYAJOckE8RQ== clemenko@clemenko.local
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDAuAJDGb9xqrptXNLXQbScfnw409MeRk8ZxQpVCfqtbd9d3qAEnnSefWXoLPhBJgB6HZopPANOa5IR7sTzTem0pzJFzzyH0p+4pm7Pb5VDGJQ2nbgVWNlFpHGYyVp2jnI3CuQaOlyl0sJX8x8P9e1dru2IzhjRXD/DIpSuDbe5hxGgTyK/ZiQjwYfZmxrH88SP42YoFe9xjKP457sRBMVe77vdPv0rg/9FRi60gNI7p2nxWA9B+7NSvmrKYYAw8GABlExOp7IUhLAy22tiLN0XTDP9eETUPdQIWGgtoOtaYh+y+9AWSHR/eNmLcdIdPlLpWwyRLes+0VJIyu6fx4Bgol4WkscPK36VxYrzV5l56cR9HCs0dvkEnx1gfgrUGOC9hyQN7Ak8P8JzfeeRLAKX2SJ3mwtbIfZfv/fvLGBtv+gBgAoZxwtTGXpGwAFdJtL7EdbCV/5sXNg4ppIIOJLNKAIV+hVWw0N716AZkxmWDFjdb5nEySE6d8MTAa8fYhU= rgs-creynold@creynold-rgs.local
       write_files:
       - path: /etc/sysctl.conf
         owner: root
@@ -155,8 +155,17 @@ nodepools:
         content: |
           apiVersion: audit.k8s.io/v1
           kind: Policy
+          metadata:
+            name: rke2-audit-policy
           rules:
-          - level: RequestResponse
+            - level: Metadata
+              resources:
+              - group: ""
+                resources: ["secrets"]
+            - level: RequestResponse
+              resources:
+              - group: ""
+                resources: ["*"]
       - path: /etc/rancher/rke2/rancher-pss.yaml
         owner: root
         content: |
@@ -225,29 +234,29 @@ nodepools:
       - sudo mkdir -p /etc/rancher/rke2/ /var/lib/rancher/rke2/server/manifests/
       - sudo useradd -r -c "etcd user" -s /sbin/nologin -M etcd -U
       - sudo systemctl stop firewalld; systemctl disable firewalld; systemctl stop nm-cloud-setup; systemctl disable nm-cloud-setup; systemctl stop nm-cloud-setup.timer; systemctl disable nm-cloud-setup.timer
-  - name: worker-nodes-prod
+  - name: worker-nodes-dev
     etcd: false
     controlplane: false
     worker: true
     labels: {}
     taints: {}
-    quantity: 3
+    quantity: 2
     paused: false
-    ami: ami-05a5f6298acdb05b6 # rocky ami-09c77dc92e45bc3ea  # optional: replace with your ami id
+    ami: ami-0ce8fc041db68907c #rhel 9 ami
     deviceName: /dev/sda1
     encryptEbsVolume: false
     endpoint: ''
-    iamInstanceProfile: 'iam-profile' # required: replace with your iam instance profile name
+    iamInstanceProfile: 'creynold-iam-ip' # required: replace with your iam instance profile name
     insecureTransport: false
-    instanceType: m6a.2xlarge
-    region: us-east-1
+    instanceType: t3a.xlarge
+    region: us-gov-west-1
     createSecurityGroup: false
-    securityGroups: ['default'] # required: replace with your security group name
+    securityGroups: ['creynold-sg'] # required: replace with your security group name
     keypairName: '' # adding key
     securityGroupReadonly: false
     sshKeyContents: ''
-    subnetId: subnet-0a798890114529bf6 # required: replace with your subnet id
-    zone: b
+    subnetId: subnet-0392e5b03c16aa118 # required: replace with your subnet id
+    zone: a
     monitoring: false
     privateAddressOnly: false
     requestSpotInstance: false
@@ -256,7 +265,7 @@ nodepools:
     rootSize: 80
     sshUser: ec2-user
     volumeType: gp3
-    vpcId: vpc-0a41666752f70473d # required: replace with your vpc id
+    vpcId: vpc-0b6941a3bdc1f3fda # required: replace with your vpc id
     useEbsOptimizedInstance: false
     usePrivateAddress: false
     userData: |
