@@ -234,7 +234,7 @@ nodepools:
       - sudo mkdir -p /etc/rancher/rke2/ /var/lib/rancher/rke2/server/manifests/
       - sudo useradd -r -c "etcd user" -s /sbin/nologin -M etcd -U
       - sudo systemctl stop firewalld; systemctl disable firewalld; systemctl stop nm-cloud-setup; systemctl disable nm-cloud-setup; systemctl stop nm-cloud-setup.timer; systemctl disable nm-cloud-setup.timer
-  - name: worker-nodes-dev
+  - name: worker-nodes-qa
     etcd: false
     controlplane: false
     worker: true
