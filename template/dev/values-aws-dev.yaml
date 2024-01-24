@@ -16,7 +16,7 @@ cluster:
     docker: false
     disable_kube_proxy: false
     etcd_expose_metrics: false
-    #profile: cis-1.23
+    profile: cis-1.23
     selinux: true
     secrets_encryption: true
     write_kubeconfig_mode: 0640
