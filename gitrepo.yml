@@ -1,44 +1,44 @@
-kind: GitRepo
-apiVersion: fleet.cattle.io/v1alpha1
-metadata:
-  name: flask
-  namespace: fleet-local
-spec:
-  branch: main
-  repo: https://github.com/therealcreynold/fleet
-  targetNamespace: flask
-  paths:
-  - flask
----
+# kind: GitRepo
+# apiVersion: fleet.cattle.io/v1alpha1
+# metadata:
+#   name: flask
+#   namespace: fleet-local
+# spec:
+#   branch: main
+#   repo: https://github.com/therealcreynold/fleet
+#   targetNamespace: flask
+#   paths:
+#   - flask
+# ---
 
-kind: GitRepo
-apiVersion: fleet.cattle.io/v1alpha1
-metadata:
-  name: whoami
-  namespace: fleet-local
-spec:
-  branch: main
-  repo: https://github.com/therealcreynold/fleet
-  targetNamespace: whoami
-  paths:
-  - whoami
+# kind: GitRepo
+# apiVersion: fleet.cattle.io/v1alpha1
+# metadata:
+#   name: whoami
+#   namespace: fleet-local
+# spec:
+#   branch: main
+#   repo: https://github.com/therealcreynold/fleet
+#   targetNamespace: whoami
+#   paths:
+#   - whoami
 
----
+# ---
 
-kind: GitRepo
-apiVersion: fleet.cattle.io/v1alpha1
-metadata:
-  name: ghost
-  namespace: fleet-local
-spec:
-  branch: main
-  repo: https://github.com/therealcreynold/fleet
-  targetNamespace: ghost
-  paths:
-  - ghost
+# kind: GitRepo
+# apiVersion: fleet.cattle.io/v1alpha1
+# metadata:
+#   name: ghost
+#   namespace: fleet-local
+# spec:
+#   branch: main
+#   repo: https://github.com/therealcreynold/fleet
+#   targetNamespace: ghost
+#   paths:
+#   - ghost
 
 
----
+# ---
 
 kind: GitRepo
 apiVersion: fleet.cattle.io/v1alpha1
