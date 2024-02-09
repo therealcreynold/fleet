@@ -5,7 +5,7 @@ rancher:
     url: rancher.ceynold.dev
 cluster:
   annotations: {}
-  labels: {}
+  labels: {fleet-demo: 'true'}
   name: creynold-dev-aws-govcloud
   config:
     systemDefaultRegistry: docker.io
