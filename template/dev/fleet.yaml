@@ -6,4 +6,4 @@ helm:
   releaseName: cluster-template-dev
   valuesFiles:
     - values-aws-dev.yaml
-    - values-azure-dev.yaml
+    #- values-azure-dev.yaml
